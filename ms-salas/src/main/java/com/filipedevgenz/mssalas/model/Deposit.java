@@ -2,7 +2,6 @@ package com.filipedevgenz.mssalas.model;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Set;
@@ -17,18 +16,16 @@ import java.util.UUID;
 @Setter
 public class Deposit {
         @Id
-        @GeneratedValue(strategy = GenerationType.UUID)
         @Column(name = "deposit_id")
-        UUID depositId;
+         String depositId;
 
-        @NotNull
         @NotEmpty
-        String name;
+        String number;
 
-        @NotNull
         @NotEmpty
-        String Local;
+        String local;
 
-        @OneToMany(mappedBy = "deposit")
+        @OneToMany(mappedBy = "deposit",cascade = CascadeType.ALL, orphanRemoval = true)
         Set<@Valid Thing> things;
+
 }
