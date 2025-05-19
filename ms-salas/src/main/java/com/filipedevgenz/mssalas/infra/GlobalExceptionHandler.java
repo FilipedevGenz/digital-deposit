@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 @ExceptionHandler(DepositNotFoundException.class)
     public ResponseEntity<RestErrorMessage> DepositNotFound(DepositNotFoundException ex) {
-    RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(threatResponse);
+    RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatResponse);
 }
 
     @ExceptionHandler(ConstraintViolationException.class)

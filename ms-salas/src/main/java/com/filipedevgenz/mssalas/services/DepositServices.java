@@ -2,27 +2,22 @@ package com.filipedevgenz.mssalas.services;
 
 import com.filipedevgenz.mssalas.dto.DepositDto;
 import com.filipedevgenz.mssalas.exceptions.DepositNotFoundException;
-import com.filipedevgenz.mssalas.infra.Mapper;
 import com.filipedevgenz.mssalas.model.Deposit;
 import com.filipedevgenz.mssalas.model.Thing;
 import com.filipedevgenz.mssalas.repository.DepositRepository;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-@Validated
 public class DepositServices {
 
     DepositRepository repository;
 
-    public Thing SetThing(@Valid Thing thing, UUID depositId) {
+    public Thing insertThingIntoDeposit(Thing thing, String depositId) {
 
         Deposit deposit = repository.findById(depositId)
                 .orElseThrow(DepositNotFoundException::new);
@@ -34,16 +29,27 @@ public class DepositServices {
         return thing;
     }
 
-    public Deposit AddDeposit(DepositDto deposit) {
-        Deposit toSave = Mapper.ToEntity(deposit);
-        return repository.save(toSave);
+    public Deposit addDeposit(DepositDto DTOdeposit, UUID userId) {
+        Deposit deposit = DepositDto.toEntity(DTOdeposit);
+        deposit.setUserId(userId);
+        return repository.save(deposit);
     }
 
-    public List<Deposit> GetAllDeposits() {
+    public Deposit getDepositById(String depositId, UUID userId) {
+        Deposit deposit = repository.findById(depositId).orElseThrow(DepositNotFoundException::new);
+        if(deposit.getUserId() == userId){
+            return deposit;
+        }
+        throw new DepositNotFoundException();
+    }
+
+    public List<Deposit> GetAllDeposits(UUID userId) {
+        List<Deposit> toReturn = repository.getDepositsByUserId(userId).orElseThrow(DepositNotFoundException::new);
         return repository.findAll();
     }
 
-
-
-
+    public void RemoveDeposit(String depositId) {
+        Deposit toRemove = getDepositById(depositId);
+        repository.delete(toRemove);
+    }
 }

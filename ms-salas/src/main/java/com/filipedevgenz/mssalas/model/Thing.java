@@ -1,6 +1,7 @@
 package com.filipedevgenz.mssalas.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Thing {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID thingId;
@@ -24,10 +26,10 @@ public class Thing {
     @NotEmpty
     String name;
 
-    @Min(0)
-    int quantity;
+    @DecimalMin(value = "0.0", inclusive = false)
+    double quantity;
 
     @ManyToOne
-    @JoinColumn(name = "depositId")
-    Deposit deposit;
+    @JoinColumn(name = "deposit_id")
+    private Deposit deposit;
 }
