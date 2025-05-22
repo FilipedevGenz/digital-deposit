@@ -1,4 +1,4 @@
-package com.filipedevgenz.mssecurity.config;
+package com.filipedevgenz.mssecurity.notUsing;
 
 import com.filipedevgenz.mssecurity.model.Users;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
+
 @RequiredArgsConstructor
 @Getter
 public class CustomAutentication implements Authentication {
@@ -46,6 +46,6 @@ public class CustomAutentication implements Authentication {
 
     @Override
     public String getName() {
-        return user.getMail();
+        return user.getUsername();
     }
 }

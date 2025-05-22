@@ -1,4 +1,4 @@
-package com.filipedevgenz.mssecurity.config;
+package com.filipedevgenz.mssecurity.notUsing;
 
 import com.filipedevgenz.mssecurity.model.Users;
 import com.filipedevgenz.mssecurity.service.UserService;
@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @RequiredArgsConstructor
 @Component
-public class CustomAutenticatorProvider implements AuthenticationProvider {
+public class CustomAuthenticatorProvider implements AuthenticationProvider {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
@@ -30,7 +29,7 @@ public class CustomAutenticatorProvider implements AuthenticationProvider {
             throw getWrongUsernameOrPassword();
         }
 
-        if (passwordEncoder.matches(password,user.getEncondedPassword())){
+        if (passwordEncoder.matches(password,user.getPassword())){
             return new CustomAutentication(user);
         }
         throw getWrongUsernameOrPassword();

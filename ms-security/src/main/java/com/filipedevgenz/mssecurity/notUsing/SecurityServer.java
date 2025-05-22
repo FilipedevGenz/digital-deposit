@@ -1,7 +1,7 @@
-package com.filipedevgenz.mssecurity.service;
+package com.filipedevgenz.mssecurity.notUsing;
 
-import com.filipedevgenz.mssecurity.config.CustomAutentication;
 import com.filipedevgenz.mssecurity.model.Users;
+import com.filipedevgenz.mssecurity.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
