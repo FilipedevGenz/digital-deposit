@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: ms-gateway
+  cloud:
+    gateway:
+      locator:
+        enabled: true
+        lower-case-service-id: true
+      routes:
+        -id: ms-auth
+        uri: lb://ms-auth
+        predicates:
+          -path: Path=/auth/**
+
+

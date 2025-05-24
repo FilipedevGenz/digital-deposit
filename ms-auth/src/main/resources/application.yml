@@ -1,0 +1,8 @@
+
+api:
+  security:
+    token:
+      secret: "sua_chave_secreta_super_secreta_aqui"
+spring:
+  application:
+    name: ms-auth
